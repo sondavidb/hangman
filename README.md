@@ -11,4 +11,7 @@ In the future looking to clean up the code so it's more readable and potentially
 
 Also definitely looking into making this an actual interface and not a command-line game.
 
+Prerequisites: Python 3.7 (unsure of version honestly it's been a while, will fix it up for 3.8 eventually)
+
 06/15/20 - First push
+04/12/21 - Cleaned up some code

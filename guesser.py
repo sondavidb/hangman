@@ -215,8 +215,8 @@ def playGame():
 			"? (type y or yes for yes, n or no for no)")
 		isCorrect = input().lower()
 
-		while (isCorrect != "y" and isCorrect != "yes" and
-			isCorrect != "n" and isCorrect != "no"):
+		while (isCorrect != "y" and isCorrect != "yes"
+			and isCorrect != "n" and isCorrect != "no"):
 			print("Invalid input. Please type y or yes for yes, n or no for no")
 			isCorrect = input().lower()
 

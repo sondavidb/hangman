@@ -18,6 +18,16 @@ import copy
 import time
 
 #
+# Constants
+#
+
+# Most commonly used letters in words the English alphabet, 
+# from most common to least common (how many words contain these letters, 
+# not how often they appear in words)
+FREQUENCY = ['e', 'i', 'a', 'n', 'o', 'r', 's', 't', 'l', 'c', 'u', 'd',
+	'p', 'm', 'h', 'g', 'y', 'b', 'f', 'v', 'k', 'w', 'z', 'x', 'q', 'j']
+
+#
 # Variables
 #
 
@@ -34,12 +44,6 @@ wordChoices = [] # Possible words based on the information given from the word
 # alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 #	'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] 
 letterChoices = [] # Letter candidates for removing
-
-# Most commonly used letters in words the English alphabet, 
-# from most common to least common (how many words contain these letters, 
-# not how often they appear in words)
-frequency = ['e', 'i', 'a', 'n', 'o', 'r', 's', 't', 'l', 'c', 'u', 'd',
-	'p', 'm', 'h', 'g', 'y', 'b', 'f', 'v', 'k', 'w', 'z', 'x', 'q', 'j']
 
 # ----------------------------------------------------------------------
 

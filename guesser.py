@@ -1,17 +1,29 @@
+# Inspired by the following video:
+# https://www.youtube.com/watch?v=le5uGqHKll8
+
+# This program is the guesser in a game of hangman.
+# Give it the length of your word, and it will guess
+# which word you're thinking of.
+
+# Make sure your is in the following dictionary:
+# https://github.com/dwyl/english-words/blob/master/words_alpha.txt
+
+# In the future I plan to optimize the algorithm used
+# and make a more intuitive interface
+# bc a console-line game is really not that fun
+
+# ----------------------------------------------------------------------
+
 import copy
 import time
 
-# Inspired by the following video: https://www.youtube.com/watch?v=le5uGqHKll8
-# This program is the guesser in a game of hangman.
-# Give it the length of your word, and it will guess which word you're thinking of.
-# Make sure your is in the following dictionary:
-# https://github.com/dwyl/english-words/blob/master/words_alpha.txt
-# In the future I plan to optimize the algorithm used
-# and make a more intuitive interface bc a console-line game is really not that fun
+#
+# Variables
+#
 
-#
-# variables
-#
+# Should I use global variables in normal settings? No.
+# Should I refactor it? Yes!
+# Will I? Probably not : ^)
 
 # Our comprehensive dictionary (something something
 # this isn't a dictionary in Python terms - I know
@@ -21,15 +33,18 @@ wordChoices = [] # Possible words based on the information given from the word
 
 # alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 #	'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'] 
-letterChoices = [] # Candidates for removing 
+letterChoices = [] # Letter candidates for removing
+
 # Most commonly used letters in words the English alphabet, 
 # from most common to least common (how many words contain these letters, 
 # not how often they appear in words)
 frequency = ['e', 'i', 'a', 'n', 'o', 'r', 's', 't', 'l', 'c', 'u', 'd',
 	'p', 'm', 'h', 'g', 'y', 'b', 'f', 'v', 'k', 'w', 'z', 'x', 'q', 'j']
 
+# ----------------------------------------------------------------------
+
 #
-# functions
+# Helper functions
 #
 
 # Creates initial dictionary and returns it
@@ -49,10 +64,10 @@ def resetWordChoices(length):
 			wordChoices.append(word)
 
 # Fully resets the list of word choices to be the original dictionary.
-# Never used as of now but doesn't hurt to have it I suppose
-def fullResetWordChoices():
-	global wordChoices
-	wordChoices = dictionary.deepcopy()
+# Never used as of now so commented out
+# def fullResetWordChoices():
+# 	global wordChoices
+# 	wordChoices = dictionary.deepcopy()
 
 # Reset list of letters to its original state
 # (the entire alphabet in order of frequency)
@@ -67,6 +82,18 @@ def setWordChoices(lst):
 	global wordChoices
 	wordChoices = lst
 
+# TODO - The below functions could definitely be consolidated
+# to 1-2 functions
+
+# Makes a list of words without the given letter and returns it
+def makeListWithoutLetter(letter):
+	newlst = []
+	for word in wordChoices:
+		if letter not in word:
+			newlst.append(word)
+
+	return newlst
+
 # Makes a list of words without the given letter 
 # in the given position and returns it
 def makeListWithoutLetter(letter, pos):
@@ -77,11 +104,11 @@ def makeListWithoutLetter(letter, pos):
 
 	return newlst
 
-# Makes a list of words without the given letter and returns it
-def makeListWithoutLetterNoPos(letter):
+# Makes a list of words with the given letter and returns it
+def makeListWithLetter(letter):
 	newlst = []
 	for word in wordChoices:
-		if letter not in word:
+		if letter in word:
 			newlst.append(word)
 
 	return newlst
@@ -96,37 +123,33 @@ def makeListWithLetter(letter, pos):
 
 	return newlst
 
-# Makes a list of words with the given letter and returns it
-def makeListWithLetterNoPos(letter):
-	newlst = []
-	for word in wordChoices:
-		if letter in word:
-			newlst.append(word)
+# ----------------------------------------------------------------------
 
-	return newlst
+#
+# Logic functions
+#
 
 # Based on the available choices, 
 # finds the best letter to guess and returns it
 def findOptimalLetter():
-	global letterChoices
-	# The length of each list made by removing any words with the given letter
+	global letterChoices # The length of each list made by removing
+	# any words with the given letter
 	listSizes = {}
 
 	# TODO - find a more efficient method xd
 	for letter in letterChoices:
-		lst = makeListWithoutLetterNoPos(letter)
+		lst = makeListWithoutLetter(letter)
 		if len(lst) == len(wordChoices):
-			# This means the letter is not in any of the words
+			# Letter does not show up in remaining words
 			letterChoices.remove(letter)
 		else:
 			listSizes[letter] = len(lst)
 
-	# Sorts by key in ascending order
+	# Sorts by num words left in ascending order
 	listSizes = {k: v for k, v in sorted(listSizes.items(),
 		key=lambda item: item[1])}
-	# Get the first key in the newly sorted by length list
+	# Get the smallest value
 	bestLetter = next(iter(listSizes))
-	# print(listSizes)
 
 	return bestLetter
 
@@ -152,6 +175,7 @@ def playGame():
 	print("\nHow long is your word?")
 	length = input()
 	valid = False
+
 	while not valid:
 		if length.isdigit():
 			length = int(length)
@@ -167,6 +191,7 @@ def playGame():
 	print("How many mistakes am I allowed? (standard is 6)")
 	maxMistakes = input()
 	valid = False
+
 	while not valid:
 		if maxMistakes.isdigit():
 			maxMistakes = int(maxMistakes)
@@ -208,7 +233,6 @@ def playGame():
 		print("\nCurrent word: " + str(guessedWord))
 		print("Mistakes made: " + str(mistakes))
 		
-		# print(wordChoices)
 		print("Guessing best letter...")
 		letter = guess()
 		print("Does your word have the letter " + letter + 
@@ -221,8 +245,7 @@ def playGame():
 			isCorrect = input().lower()
 
 		if isCorrect == "y" or isCorrect == "yes":
-			setWordChoices(makeListWithLetterNoPos(letter))
-			# print(wordChoices)
+			setWordChoices(makeListWithLetter(letter))
 			print("Please tell me in what position(s) your letter is in." \
 				"When you're done, type done.\n(e.g. if your word is 'apple'" \
 				"and I guessed p, you would enter 2, then 3, then done)")
@@ -248,24 +271,21 @@ def playGame():
 
 				pos = input()
 
-			# print(posArr)
 			for i in range(length):
 				if i in posArr:
 					guessedWord = guessedWord[:i] + letter + guessedWord[i + 1:]
 					setWordChoices(makeListWithLetter(letter, i))
-					# print(wordChoices)
 				else:
 					setWordChoices(makeListWithoutLetter(letter, i))
 			
 		else:
-			setWordChoices(makeListWithoutLetterNoPos(letter))
+			setWordChoices(makeListWithoutLetter(letter))
 			mistakes += 1
 
 	#
 	# Game end
 	#
 
-	# print(wordChoices)
 	if not wordChoices:
 		print("Sorry, your word wasn't in the dictionary.")
 	elif mistakes >= maxMistakes:

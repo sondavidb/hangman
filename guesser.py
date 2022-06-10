@@ -74,10 +74,10 @@ def resetWordChoices(length):
 # 	wordChoices = dictionary.deepcopy()
 
 # Reset list of letters to its original state
-# (the entire alphabet in order of frequency)
+# (the entire alphabet in order of FREQUENCY)
 def resetLetterChoices():
 	global letterChoices
-	letterChoices = copy.deepcopy(frequency)
+	letterChoices = copy.deepcopy(FREQUENCY)
 
 # Changes the global wordChoices variable
 # The letter choices are always removed individually so 
@@ -86,44 +86,40 @@ def setWordChoices(lst):
 	global wordChoices
 	wordChoices = lst
 
-# TODO - The below functions could definitely be consolidated
-# to 1-2 functions
 
-# Makes a list of words without the given letter and returns it
-def makeListWithoutLetter(letter):
-	newlst = []
-	for word in wordChoices:
-		if letter not in word:
-			newlst.append(word)
+# The next two functions take the same parameters.
+# letter - character type. Letter to be used for list pruning
+# pos - integer type. Position to remove letter from.
+# If -1, remove any instance of it.
 
-	return newlst
-
-# Makes a list of words without the given letter 
-# in the given position and returns it
+# Make a list of words without given letter
 def makeListWithoutLetter(letter, pos):
 	newlst = []
-	for word in wordChoices:
-		if letter != word[pos]:
-			newlst.append(word)
+
+	if pos > -1:
+		for word in wordChoices:
+			if letter not in word:
+				newlst.append(word)
+	
+	else:
+		for word in wordChoices:
+			if letter != word[pos]:
+				newlst.append(word)
 
 	return newlst
 
-# Makes a list of words with the given letter and returns it
-def makeListWithLetter(letter):
-	newlst = []
-	for word in wordChoices:
-		if letter in word:
-			newlst.append(word)
-
-	return newlst
-
-# Makes a list of words with the given letter 
-# in the given position and returns it
+# Make a list of word with given letter
 def makeListWithLetter(letter, pos):
 	newlst = []
-	for word in wordChoices:
-		if letter == word[pos]:
-			newlst.append(word)
+
+	if pos > -1:
+		for word in wordChoices:
+			if letter in word:
+				newlst.append(word)
+	else:
+		for word in wordChoices:
+			if letter == word[pos]:
+				newlst.append(word)
 
 	return newlst
 
@@ -142,7 +138,7 @@ def findOptimalLetter():
 
 	# TODO - find a more efficient method xd
 	for letter in letterChoices:
-		lst = makeListWithoutLetter(letter)
+		lst = makeListWithoutLetter(letter, -1)
 		if len(lst) == len(wordChoices):
 			# Letter does not show up in remaining words
 			letterChoices.remove(letter)
@@ -249,7 +245,7 @@ def playGame():
 			isCorrect = input().lower()
 
 		if isCorrect == "y" or isCorrect == "yes":
-			setWordChoices(makeListWithLetter(letter))
+			setWordChoices(makeListWithLetter(letter, -1))
 			print("Please tell me in what position(s) your letter is in." \
 				"When you're done, type done.\n(e.g. if your word is 'apple'" \
 				"and I guessed p, you would enter 2, then 3, then done)")
@@ -283,7 +279,7 @@ def playGame():
 					setWordChoices(makeListWithoutLetter(letter, i))
 			
 		else:
-			setWordChoices(makeListWithoutLetter(letter))
+			setWordChoices(makeListWithoutLetter(letter, -1))
 			mistakes += 1
 
 	#

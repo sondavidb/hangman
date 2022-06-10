@@ -58,7 +58,7 @@ def playGame():
     guessedWord = '*' * length
     mistakes = 0
 
-    print("Setup finished in " + str(time.time() - start) + "seconds.")
+    print("Setup finished in " + str(time.time() - start) + " seconds.")
     
     #
     # Game Start

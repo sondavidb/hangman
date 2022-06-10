@@ -90,9 +90,9 @@ def playGame():
 
         if isCorrect == "y" or isCorrect == "yes":
             hangman.setWordChoices(hangman.makeListWithLetter(letter, -1))
-            print("Please tell me in what position(s) your letter is in." \
-                " When you're done, type done.\n(e.g. if your word is 'apple'" \
-                " and I guessed p, you would enter 2, then 3, then done)")
+            print("Please tell me in what position(s) your letter is in. " \
+                "When you're done, type done.\n(e.g. if your word is 'apple' " \
+                "and I guessed p, you would enter 2, then 3, then done)")
             pos = input().lower()
             posArr = [] # Keep track of the positions of where the letter is
 
@@ -110,8 +110,8 @@ def playGame():
                         print("Please give a valid input (integer greater " \
                             "than 0 " "and less than " + str(length + 1) + ")")
                 else:
-                    print("Please give a valid input (integer greater than 0" \
-                            " and less than " + str(length + 1) + ")")
+                    print("Please give a valid input (integer greater than 0 " \
+                            "and less than " + str(length + 1) + ")")
 
                 pos = input()
 

@@ -5,7 +5,14 @@ Make sure your word only contains alphabet characters (no hyphens, spaces, colon
 
 Based on the algorithm presented in this video (timestamped at 2:58): https://youtu.be/le5uGqHKll8?t=178
 
-Currently very messy but should technically work.
+The process behind each guess can be summarized as follows:
+
+1. Have list of all available words (in our case, the entire English dictionary)
+2. Get all of the available letters to guess
+3. For each letter:
+  - Assume letter is not in word
+  - Copy word list and prune it based on this assumption
+4. Guess the letter that minimizes length of pruned word list
 
 In the future looking to clean up the code so it's more readable and potentially add a faster/more efficient way to consider all possibilities.
 

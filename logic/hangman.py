@@ -1,16 +1,4 @@
-# Inspired by the following video:
-# https://www.youtube.com/watch?v=le5uGqHKll8
-
-# This program is the guesser in a game of hangman.
-# Give it the length of your word, and it will guess
-# which word you're thinking of.
-
-# Make sure your is in the following dictionary:
-# https://github.com/dwyl/english-words/blob/master/words_alpha.txt
-
-# In the future I plan to optimize the algorithm used
-# and make a more intuitive interface
-# bc a console-line game is really not that fun
+# Logic behind hangman
 
 import copy
 import time
@@ -64,12 +52,6 @@ def resetWordChoices(length):
     for word in dictionary:
         if len(word) == length:
             wordChoices.append(word)
-
-# Fully resets the list of word choices to be the original dictionary.
-# Never used as of now so commented out
-# def fullResetWordChoices():
-#   global wordChoices
-#   wordChoices = dictionary.deepcopy()
 
 # Reset list of letters to its original state
 # (the entire alphabet in order of FREQUENCY)

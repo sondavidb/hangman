@@ -129,7 +129,6 @@ def performAnalysis():
         writer.writeheader()
         writer.writerows(wordInfo)
 
-    print("Written to file in " + str(time.time() - test) + " seconds!")
     input("Done! Press enter to exit.")
 
 # Play the game

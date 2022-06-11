@@ -112,24 +112,29 @@ def makeListWithLetter(letter, pos):
 # Based on the available choices, 
 # finds the best letter to guess and returns it
 def findOptimalLetter():
-    global letterChoices # The length of each list made by removing
+    global letterChoices
+    listSizes = {} # The length of each list made by removing
     # any words with the given letter
-    listSizes = {}
+    removeList = []
 
     # TODO - find a more efficient method xd
     for letter in letterChoices:
         lst = makeListWithoutLetter(letter, -1)
+        
         if len(lst) == len(wordChoices):
             # Letter does not show up in remaining words
-            letterChoices.remove(letter)
+            removeList.append(letter)
         else:
             listSizes[letter] = len(lst)
 
+    for letter in removeList:
+        letterChoices.remove(letter)
     # Sorts by num words left in ascending order
     listSizes = sorted(listSizes.items(), key=lambda item: item[1])
 
     # Get the smallest value
     bestLetter = listSizes[0][0]
+
     return bestLetter
 
 # Guesses a letter and removes it from the list of possible letters, 

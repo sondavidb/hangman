@@ -75,6 +75,11 @@ def playGame():
         print("Guessing best letter...")
         start = time.time()
         letter = hangman.guess()
+        
+        if (letter == ""):
+            print("You should not see this!! Ever!!")
+            return
+
         print("Figured optimal letter to guess in " +
             str(time.time() - start) + " seconds.")
 

@@ -4,7 +4,7 @@
 
 import logic.hangman as hangman
 
-import pandas as pd
+import csv
 import random
 import time
 
@@ -124,8 +124,10 @@ def performAnalysis():
 
     test = time.time()
 
-    df = pd.DataFrame.from_dict(wordInfo) 
-    df.to_csv (r'data.csv', index = False, header=True)
+    with open("data.csv", "w") as fout:
+        writer = csv.DictWriter(fout, fieldnames = csvCols)
+        writer.writeheader()
+        writer.writerows(wordInfo)
 
     print("Written to file in " + str(time.time() - test) + " seconds!")
     input("Done! Press enter to exit.")

@@ -1,4 +1,6 @@
-# CLI game for Hangman
+# Analysis of the algorithm's performance with the following metrics:
+# time spent to guess word
+# number of correct and incorrect guesses
 
 import logic.hangman as hangman
 

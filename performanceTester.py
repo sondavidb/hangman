@@ -123,7 +123,7 @@ def performAnalysis():
     print("Writing to data.csv...")
 
     with open("data.csv", "w") as fout:
-        writer = csv.DictWriter(fout, fieldnames = csvCols)
+        writer = csv.DictWriter(fout, fieldnames = csvCols, newline = "")
         writer.writeheader()
         writer.writerows(wordInfo)
 

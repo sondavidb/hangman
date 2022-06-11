@@ -558,6 +558,7 @@ ablaut
 ablauts
 ablaze
 able
+abled
 ableeze
 ablegate
 ablegates
@@ -1437,7 +1438,6 @@ acceleration
 accelerations
 accelerative
 accelerator
-acceleratorh
 acceleratory
 accelerators
 accelerograph
@@ -198694,6 +198694,7 @@ neptunium
 neral
 nerd
 nerds
+nerdy
 nere
 nereid
 nereidae

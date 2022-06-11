@@ -122,8 +122,8 @@ def performAnalysis():
     print("Analysis complete in " + str(time.time() - start) + " seconds!")
     print("Writing to data.csv...")
 
-    with open("data.csv", "w") as fout:
-        writer = csv.DictWriter(fout, fieldnames = csvCols, newline = "")
+    with open("data.csv", "w", newline = "") as fout:
+        writer = csv.DictWriter(fout, fieldnames = csvCols)
         writer.writeheader()
         writer.writerows(wordInfo)
 

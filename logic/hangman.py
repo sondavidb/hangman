@@ -126,11 +126,10 @@ def findOptimalLetter():
             listSizes[letter] = len(lst)
 
     # Sorts by num words left in ascending order
-    listSizes = {k: v for k, v in sorted(listSizes.items(),
-        key=lambda item: item[1])}
-    # Get the smallest value
-    bestLetter = next(iter(listSizes))
+    listSizes = sorted(listSizes.items(), key=lambda item: item[1])
 
+    # Get the smallest value
+    bestLetter = listSizes[0][0]
     return bestLetter
 
 # Guesses a letter and removes it from the list of possible letters, 
